@@ -1,3 +1,5 @@
+package com.heaven.io;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.BasicConfigurator;
@@ -47,7 +49,7 @@ public class SocketServer4 {
                     //      主线程在这里就可以做一些事情，记为X
                     //===========================================================
                     synchronized(SocketServer4.xWait){
-//                        SocketServer4.LOGGER.info("这次没有从底层接收到任务数据报文，等待10毫秒，模拟事件X的处理时间");
+//                        com.heaven.io.SocketServer4.LOGGER.info("这次没有从底层接收到任务数据报文，等待10毫秒，模拟事件X的处理时间");
                         SocketServer4.xWait.wait(10);
                     }
                     continue;
@@ -112,7 +114,7 @@ class SocketServerThread implements Runnable{
                     //      执行到这里，说明本次read没有接收到任何数据流
                     //      主线程在这里又可以做一些事情，记为Y
                     //===========================================================
-//                    SocketServerThread.LOGGER.info("这次没有从底层接收到任务数据报文，等待10毫秒，模拟事件Y的处理时间");
+//                    com.heaven.io.SocketServerThread.LOGGER.info("这次没有从底层接收到任务数据报文，等待10毫秒，模拟事件Y的处理时间");
                     continue;
                 }
 

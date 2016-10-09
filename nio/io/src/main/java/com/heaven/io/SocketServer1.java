@@ -1,3 +1,5 @@
+package com.heaven.io;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.BasicConfigurator;
@@ -7,50 +9,31 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 
 
 /**
- * JAVA非阻塞IO
- * read()方法还是被阻塞
+ * JAVA阻塞IO
  */
-public class SocketServer2 {
+public class SocketServer1 {
 
     static {
         BasicConfigurator.configure();
     }
 
-    private static Object xWait = new Object();
-
     /**
      * 日志
      */
-    private static final Log LOGGER = LogFactory.getLog(SocketServer2.class);
+    private static final Log LOGGER = LogFactory.getLog(SocketServer1.class);
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
 
         try {
             serverSocket = new ServerSocket(83);
-            serverSocket.setSoTimeout(100);
 
             while(true){
                 //这里JAVA通过JNI请求操作系统，并一直等待操作系统返回结果（或者出错）
-                Socket socket = null;
-
-                try{
-                    socket = serverSocket.accept();
-                }catch (SocketTimeoutException e){
-                    //===========================================================
-                    //      执行到这里，说明本次accept没有接收到任何数据报文
-                    //      主线程在这里就可以做一些事情，记为X
-                    //===========================================================
-                    synchronized(SocketServer2.xWait){
-                        SocketServer2.LOGGER.info("这次没有从底层接收到任务数据报文，等待10毫秒，模拟事件X的处理时间");
-                        SocketServer2.xWait.wait(10);
-                    }
-                    continue;
-                }
+                Socket socket = serverSocket.accept();
 
                 //下面我们收取信息（这里还是阻塞式的,一直等待，直到有数据可以接受）
                 InputStream in = socket.getInputStream();
@@ -74,7 +57,7 @@ public class SocketServer2 {
                 }
 
                 //下面打印信息
-                SocketServer2.LOGGER.info("服务器收到来自于端口：" + sourcePort + "的信息：" + message);
+                SocketServer1.LOGGER.info("服务器收到来自于端口：" + sourcePort + "的信息：" + message);
                 //下面开始发送信息
                 out.write("回发响应信息！".getBytes());
 
@@ -84,7 +67,7 @@ public class SocketServer2 {
                 socket.close();
             }
         }catch (Exception e){
-            SocketServer2.LOGGER.error(e.getMessage(), e);
+            SocketServer1.LOGGER.error(e.getMessage(), e);
         }finally {
             if(serverSocket != null){
                 serverSocket.close();
