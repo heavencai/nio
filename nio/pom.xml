@@ -11,6 +11,7 @@
     <modules>
         <module>io</module>
         <module>netty</module>
+        <module>rmi</module>
     </modules>
 
     <properties>
