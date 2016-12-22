@@ -13,6 +13,8 @@
         <module>netty</module>
         <module>rmi</module>
         <module>thrift</module>
+        <module>dubboService</module>
+        <module>flowcontroller</module>
     </modules>
 
     <properties>
@@ -121,6 +123,11 @@
                 <groupId>org.apache.thrift</groupId>
                 <artifactId>libthrift</artifactId>
                 <version>0.9.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>18.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
