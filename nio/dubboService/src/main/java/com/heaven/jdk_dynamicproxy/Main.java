@@ -1,4 +1,4 @@
-package com.heaven.test.dynamicproxy;
+package com.heaven.jdk_dynamicproxy;
 
 import java.lang.reflect.Proxy;
 

@@ -1,4 +1,4 @@
-package com.heaven.test.dynamicproxy;
+package com.heaven.jdk_dynamicproxy;
 
 /**
  * 这个类就是这个业务接口的真实实现。
